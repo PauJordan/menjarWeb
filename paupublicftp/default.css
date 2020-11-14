@@ -1,0 +1,32 @@
+h1 {
+
+font-family: "Arial", sans-serif;
+}
+body {
+  background-color: #cccccc;
+  margin-left: 20px;
+  font-family: "Arial", sans-serif;
+}
+table {
+	background-color: white;
+}
+.header {
+  padding: 15px;
+}
+* {
+	box-sizing: border-box;
+
+}
+
+#col1 {
+  width: 50%;
+  float: left;
+  padding: 15px;
+  }
+
+ #col2 {
+  width: 50%;
+  float: left;
+  padding: 15px;
+  }
+
