@@ -7,7 +7,7 @@
 <?php
 include 'connect.php';
 $con = connect_mysql();
-$result = $con->query("SELECT * FROM ingredients");
+$result = $con->query("SELECT * FROM ingredients ORDER BY nom");
 echo "<table border='1'>
 <tr>
 <th>Nom</th>

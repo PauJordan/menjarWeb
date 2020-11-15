@@ -12,16 +12,7 @@
 			<select id="categoria" name="categoria">
 				<?php
 					include 'connect.php';
-					$con = connect_mysql();
-					if($result = $con->query("SELECT idcategories FROM ingredients_categories")){
-						$errcode = "";
-						while($row = $result->fetch_assoc()){
-						$value = $row['idcategories'];
-						echo '<option vaule="'.$value.'">'.$value.'</option>' ;
-						}
-					}
-					else { $errcode = "Error: (" . $con->errno . ") " . $con->error."<br>";}					
-					$con->close();			
+					create_db_dropdown("ingredients_categories", "categoria", "categoria");		
 				?>
 			</select><br>
 			Unitat: <input type="text" name="unitat"><br>

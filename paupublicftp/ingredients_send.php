@@ -10,12 +10,13 @@
 	$con = connect_mysql();
 
 	$sql = "INSERT INTO ingredients (nom, categoria, unitat, preu)
-	VALUES ('".$_POST["nom"]."', '".$_POST["categoria"]."', '".$_POST["unitat"]."', '".str_replace(",",".",$_POST["preu"])."')";
+	VALUES ('".$con->real_escape_string($_POST["nom"])."', '".$con->real_escape_string($_POST["categoria"])."', '".$con->real_escape_string($_POST["unitat"])."', '".$con->real_escape_string(str_replace(",",".",$_POST["preu"]))."')";
 
 	if ($con->query($sql) === TRUE) {
 	  echo "Ingredient afegit correctament.<br> ";
 	  echo '<a href="/ingredients.php">Afegeix-ne un nou...</a>';
 	} 
+
 	else {
 	  echo "Error: " . $sql . "<br>" . $con->error. "<br>";
 	  echo '<a href="/ingredients_add.php">Torna-ho a provar...</a>';
