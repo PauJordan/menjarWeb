@@ -1,9 +1,9 @@
 h1 {
 
-font-family: "Arial", sans-serif;
+font-family: "Helvetica", sans-serif;
 }
 body {
-  background-color: #cccccc;
+  background-color: white;
   margin-left: 20px;
   font-family: "Arial", sans-serif;
 }
@@ -30,3 +30,4 @@ table {
   padding: 15px;
   }
 
+#cccccc;

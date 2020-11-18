@@ -7,10 +7,10 @@
 		return $connection;
 	}
 
-	function create_db_dropdown($table, $val_col, $disp_col = " "){
+	function create_db_dropdown($table, $val_col, $disp_col = ""){
 		/*This function querys db to create a dropdown. If no disp is specified, same as value.*/
-		if ($disp_col == " "){ //Check if disp_col is used and select only requiered columns.
-			$disp_col = $disp_val;
+		if ($disp_col == ""){ //Check if disp_col is used and select only requiered columns.
+			$disp_col = $val_col;
 			$columns = $val_col;
 		}
 		else{

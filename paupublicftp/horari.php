@@ -2,39 +2,48 @@
 <head>
 	<title>Horari</title>
 	<link rel="stylesheet" href="default.css">
-</head>
-<body>
-<header>
-</header>
-<div id="col1" >
-	<select id="sel_categoria" name="categoria" onchange=>
-				<?php
-					include 'connect.php';
-					create_db_dropdown("ingredients_categories", "categoria", "categoria");		
-				?>
-	</select>
-	<table border='1'>
-		<tr>
-		<th>Categoria</th>
-		<th>Nom</th>
-		</tr>
-	</table>
-		<p id = "demo">Hi</p>
-		<script>
-			var filter = document.getElementById("sel_categoria").innerHTML;
-			var obj, dbParam, xmlhttp;
-			obj = {"categoria":"Carn"};
+	<script>
+		function insertRows(item, index){
+			document.getElementById("filtered_menjars").innerHTML += ("<tr><td>"+item["nom"]+"</tr></td>");
+		}
+		function genTable(){
+			var filter = document.getElementById("sel_categoria").value;
+			console.log(filter);
+			var obj, dbParam, xmlhttp, menjars_filtered;
+			obj = {"categoria":filter};
 			dbParam = JSON.stringify(obj);
 			console.log(dbParam);
 			xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange = function() {
   				if (this.readyState == 4 && this.status == 200) {
-    				document.getElementById("demo").innerHTML = this.responseText;
+    				//document.getElementById("demo").innerHTML = this.responseText;
+    				menjars_filtered = JSON.parse(this.responseText);
+    				document.getElementById("filtered_menjars").innerHTML = "<tr><th>Nom</th></tr>";
+    				menjars_filtered.forEach(insertRows);
     			}
+    			
     		};
     		xmlhttp.open("GET", "menjars_query.php?cat=" + dbParam, true);
     		xmlhttp.send();
-    	</script>	
+		}
+	</script>
+</head>
+<body>
+<header>
+</header>
+<div id="col1" >
+	<select id="sel_categoria" name="categoria" onchange=genTable()>
+		<option selected disabled>Filtra per categoria:</option>
+		<?php
+			include 'connect.php';
+			create_db_dropdown("menjars_categories", "idcatmenjars");		
+		?>
+	</select>
+	<table id ="filtered_menjars" border='1'>
+		<tr>
+		<th>Nom</th>
+		</tr>
+	</table>
 </div>
 <div id="col2">
 	<table border='1'>
