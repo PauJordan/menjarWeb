@@ -2,31 +2,7 @@
 <head>
 	<title>Horari</title>
 	<link rel="stylesheet" href="default.css">
-	<script>
-		function insertRows(item, index){
-			document.getElementById("filtered_menjars").innerHTML += ("<tr><td>"+item["nom"]+"</tr></td>");
-		}
-		function genTable(){
-			var filter = document.getElementById("sel_categoria").value;
-			console.log(filter);
-			var obj, dbParam, xmlhttp, menjars_filtered;
-			obj = {"categoria":filter};
-			dbParam = JSON.stringify(obj);
-			console.log(dbParam);
-			xmlhttp = new XMLHttpRequest();
-			xmlhttp.onreadystatechange = function() {
-  				if (this.readyState == 4 && this.status == 200) {
-    				//document.getElementById("demo").innerHTML = this.responseText;
-    				menjars_filtered = JSON.parse(this.responseText);
-    				document.getElementById("filtered_menjars").innerHTML = "<tr><th>Nom</th></tr>";
-    				menjars_filtered.forEach(insertRows);
-    			}
-    			
-    		};
-    		xmlhttp.open("GET", "menjars_query.php?cat=" + dbParam, true);
-    		xmlhttp.send();
-		}
-	</script>
+	<script src="horari_functions.js" defer></script>
 </head>
 <body>
 <header>
@@ -46,7 +22,79 @@
 	</table>
 </div>
 <div id="col2">
-	<table border='1'>
+	<div class="day_col">
+		Dilluns
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+	</div>
+	<div class="day_col">
+		Dimarts
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+	</div>
+	<div class="day_col">
+		Dimecres
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+	</div>
+	<div class="day_col">
+		Dijous
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+	</div>
+	<div class="day_col">
+		Divendres
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+	</div>
+	<div class="day_col">
+		Dissabte
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+	</div>
+	<div class="day_col">
+		Diumenge
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+		<div class="meal_interval">
+		</div>
+	</div>
+	
+</div>
+
+</body>
+<footer>
+	<a href="/index.html">Index</a>
+	<div id="trash">
+		Paperera
+	</div>
+	<!-- <table border='1'>
 		<tr>
 		<th>Categoria</th>
 		<th>Nom</th>
@@ -68,11 +116,7 @@
 		$con->close();
 
 		?>
-	</table>
-</div>
+	</table> -->
 
-</body>
-<footer>
-<a href="/index.html">Index</a>
 </footer>
 </html>
