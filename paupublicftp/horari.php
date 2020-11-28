@@ -3,13 +3,13 @@
 	<title>Horari</title>
 	<link rel="stylesheet" href="default.css">
 	<script type="text/javascript" src="horari_functions.js" ></script>
-	<script type="text/javascript" src="horari_ini.js" defer ></script>
+	<script type="text/javascript" src="horari_ini.js"></script>
 </head>
 <body>
 <header>
 </header>
 <div id="col1" >
-	<select id="sel_categoria" name="categoria" onchange="menjarsDB(this, insertRows);">
+	<select id="sel_categoria" name="categoria" onchange="database.createRows_opt(this);">
 		<option selected disabled>Filtra per categoria:</option>
 		<?php
 			include 'connect.php';
@@ -23,7 +23,11 @@
 	</table>
 </div>
 <div id="col2">	
-	<script>createDivs(document.getElementById("col2"),7,3,"day_col","meal_interval");</script>
+
+	<script>
+		window.addEventListener("DOMContentLoaded", function() {
+        	//createDivs(document.getElementById("col2"),7,3,"day_col","meal_interval");
+    	}, false);</script>
 </div>
 
 </body>

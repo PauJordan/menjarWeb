@@ -1,38 +1,65 @@
 var menjars_filtered;
 
-function insertRow(item, index){
-			document.getElementById("filtered_menjars").innerHTML += ("<tr><td><p data-menjarid ="+ item["id"]+" class='mobil'>"+item["nom"]+"</p></tr></td>");
+var apatDict;
+
+var result;
+function mealDB(){
+	this.getMeals = function(){
+		
+		obj = {"categoria":"*"};
+		requestInfo = JSON.stringify(obj);
+		var request = new XMLHttpRequest();
+		request.onreadystatechange = function(){
+			if (this.readyState == 4 && this.status == 200) {
+				result = JSON.parse(this.responseText);
+				apatDict = new food(result);
+				createDivs(document.getElementById("col2"),7,3,"day_col","meal_interval");
+				makeDraggables();
+			};
 		}
+		request.open("GET", "menjars_query.php?cat=" + requestInfo, true);
+		request.send();
+	}
 
-function insertRows(){
-	document.getElementById("filtered_menjars").innerHTML = "<tr><th>Nom</th></tr>";
-	menjars_filtered.forEach(insertRow);
-	makeDraggables();
-	createFoodDict(menjars_filtered, apatDict);
+	this.createRows_opt = function(HTMLobj){
+		var filter = HTMLobj.value;
+		document.getElementById("filtered_menjars").innerHTML = "<tr><th>Nom</th></tr>";
+		var selection = apatDict.getByCategory(filter);
+		selection.forEach((item)=>{
+			document.getElementById("filtered_menjars").innerHTML += ("<tr><td><p data-menjarid ="+ item["id"]+" class='mobil'>"+item["name"]+"</p></tr></td>");
+		});
+		makeDraggables();
+	}
 }
-
-function menjarsDB(HTMLobj, dataFunction){
-	var filter = HTMLobj.value;
-	var obj, dbParam, xmlhttp;
-	obj = {"categoria":filter};
-	dbParam = JSON.stringify(obj);
-	xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			menjars_filtered = JSON.parse(this.responseText);
-			dataFunction();
-		};
+class meal{
+	constructor(new_id, new_name, new_category){
+		this.id = new_id;
+		this.name = new_name;
+		this.category = new_category;
 	};
-	xmlhttp.open("GET", "menjars_query.php?cat=" + dbParam, true);
-	xmlhttp.send();
+	get getid(){return this.id};
 }
-var apatDict = {};
-function createFoodDict(apatArray, dict){
+function food(apatArray){
+		this.list = [];
+		apatArray.forEach((item)=>{
+			this.list[item["id"]] = new meal(item["id"], item["nom"], item["categoria"]);
+		});
+		this.getByCategory = function(category_val){
+			return this.list.filter((item)=>{return (item.category == category_val)});
+		};
+		this.getById = function(id_val){
+			return this.list[id_val];
+		};
+}
+
+function createFoodArray(apatArray){
+	var list = [];
 	apatArray.forEach(function (item){
-		dict[item["id"]] = item["nom"];
+		list.push(new meal(item["id"], item["nom"], item["categoria"]));
 	})
-	return dict;
+	return list;
 }
+
 
 function makeDraggables(plan){
 	var draggables = document.getElementsByClassName("mobil");
@@ -45,6 +72,7 @@ function makeDraggables(plan){
 			if(container.classList.contains("meal_interval")){	
 				current_plan.removeMeal(this.dataset.menjarid, container.dataset.x, container.dataset.y);
 				//console.log("remove " + this.dataset.menjarid +" from " + container.dataset.x +", "+ container.dataset.y);
+
 			}
 		};
 		draggables[i].ondragend = function(){
@@ -53,8 +81,13 @@ function makeDraggables(plan){
 			if(container.classList.contains("meal_interval")){	
 				current_plan.addMeal(this.dataset.menjarid, container.dataset.x, container.dataset.y);
 				//console.log("add " + this.dataset.menjarid +" to " + container.dataset.x +", "+ container.dataset.y);
+				setCookie("plan_save",JSON.stringify(current_plan.days));
 			}
-			insertRows();
+			else if(container.id == "trash"){
+				setCookie("plan_save",JSON.stringify(current_plan.days));
+				this.remove();
+			}
+			database.createRows_opt(document.getElementById("sel_categoria"));
 		};
 	};
 	for(i = 0; i < containers.length; i++){
@@ -63,18 +96,11 @@ function makeDraggables(plan){
 			this.appendChild(dragedFood);
 			//current_plan.addMeal(dragedFood.dataset.menjarid, this.dataset.x, this.dataset.y);
 		};
-		/*containers[i].ondragleave = function(){
-			var dragedFood = document.querySelector(".dragging");
-			current_plan.removeMeal(dragedFood.dataset.menjarid, this.dataset.x, this.dataset.y);
-		};*/
 	};
 	const trash = document.querySelector("#trash");
 	trash.ondragenter = function(){
 			this.appendChild(document.querySelector(".dragging"));
 		};
-	trash.ondragend = function(){
-		this.innerHTML = "Paperera";
-	};
 }
 
 function plan(new_name, nX, nY){
@@ -98,7 +124,7 @@ function plan(new_name, nX, nY){
 }
 
 
-function createDivs(parent, nX, nY, classNameX, classNameY){
+function createDivs(parent, nX, nY, classNameX, classNameY, saved_plan = undefined){
 	var dies = ["Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte", "Diumenge"];
 	var divArray; 
 	for (var x = 0; x < nX; x++) {
@@ -110,8 +136,31 @@ function createDivs(parent, nX, nY, classNameX, classNameY){
 			newDivY.dataset.x = x;
 			newDivY.dataset.y = y;
 			newDivY.classList.add(classNameY);
+			var meals_in_here = current_plan.days[x][y];
+			meals_in_here.forEach((item)=>{
+				var newP = document.createElement("p");
+				newP.dataset.menjarid = item;
+				newP.classList.add("mobil");
+				var newMeal = apatDict.getById(item);
+				newP.innerHTML = newMeal.name;
+				newDivY.appendChild(newP);
+			})
 			newDivX.appendChild(newDivY);
 		};
 		parent.appendChild(newDivX);
 	};
+}
+
+function setCookie(cname, cvalue) {
+  document.cookie = cname + "=" + cvalue + ";path=/";
+}
+function getCookie(cname){
+	var dc = document.cookie;
+	var match_result = dc.match(cname + "=([^;]+)"); //Search name= with eveything behind except ;
+	if(match_result){ //If match exists
+		return JSON.parse(match_result[1]); //Parse JSON from match string
+	}
+	else{
+		return undefined;
+	}
 }
