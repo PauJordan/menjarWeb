@@ -4,7 +4,7 @@ font-family: "Helvetica", sans-serif;
 }
 body {
   background-color: #cccccc;
-  margin-left: 20px;
+  margin: 20px;
   font-family: "Arial", sans-serif;
 }
 table {
@@ -59,6 +59,14 @@ table {
     padding: 15px;
     border-width: 1px;
     border-style: solid;
+  }
+  .div_receptes{
+    width: 100%;
+    float: left;
+    padding: 15px;
+    border-width: 1px;
+    border-style: solid;
+    margin-top: 20px;
   }
 
 footer {

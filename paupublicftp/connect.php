@@ -7,9 +7,9 @@
 		return $connection;
 	}
 
-	function create_db_dropdown($table, $val_col, $disp_col = ""){
+	function create_db_dropdown($table, $val_col, $disp_col = NULL, $filter = ""){
 		/*This function querys db to create a dropdown. If no disp is specified, same as value.*/
-		if ($disp_col == ""){ //Check if disp_col is used and select only requiered columns.
+		if (is_null($disp_col)){ //Check if disp_col is used and select only requiered columns.
 			$disp_col = $val_col;
 			$columns = $val_col;
 		}
@@ -18,7 +18,7 @@
 		}
 		
 		$con = connect_mysql();
-		if($result = $con->query("SELECT ".$columns." FROM ".$table)){
+		if($result = $con->query("SELECT ".$columns." FROM ".$table." ".$filter)){
 						$errcode = "";
 						while($row = $result->fetch_assoc()){
 						

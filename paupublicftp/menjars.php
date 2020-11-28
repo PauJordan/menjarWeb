@@ -19,7 +19,7 @@
 		{
 		echo "<tr>";
 		echo "<td>" . $row['categoria'] . "</td>";
-		echo "<td>" . $row['nom'] . "</td>";
+		echo "<td contenteditable='true'>" . $row['nom'] . "</td>";
 		echo "</tr>";
 		}
 		echo "</table>";
