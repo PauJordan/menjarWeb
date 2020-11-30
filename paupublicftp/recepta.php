@@ -4,12 +4,14 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="default.css">
   <title>Editar recepta</title>
-  <script src="recepta_functions.js" defer></script>
+  <script src="classes.js"></script>
+  <script src="recepta_functions.js"></script>
+  <script src="recepta_ini.js" defer></script>
 </head>
 <body>
   <div class="div_receptes">
       Edita: 
-      <select id="sel_categoria" onchange=genTable(insertOptions)>
+      <select id="sel_categoria" onchange=md.updateOptions(menjars.getByCategory(this.value));>
         <option selected disabled>Filtra per categoria</option>
         <?php
           include 'connect.php';

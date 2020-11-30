@@ -4,4 +4,4 @@ if(galeta){
 	current_plan.days = galeta;
 }
 var database = new mealDB();
-database.getMeals();
+database.getMeals(dbLoaded);

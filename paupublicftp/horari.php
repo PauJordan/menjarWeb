@@ -2,6 +2,7 @@
 <head>
 	<title>Horari</title>
 	<link rel="stylesheet" href="default.css">
+	<script type="text/javascript" src="classes.js" ></script>
 	<script type="text/javascript" src="horari_functions.js" ></script>
 	<script type="text/javascript" src="horari_ini.js"></script>
 </head>
@@ -9,7 +10,7 @@
 <header>
 </header>
 <div id="col1" >
-	<select id="sel_categoria" name="categoria" onchange="database.createRows_opt(this);">
+	<select id="sel_categoria" name="categoria" onchange="createRows_opt(this);">
 		<option selected disabled>Filtra per categoria:</option>
 		<?php
 			include 'connect.php';

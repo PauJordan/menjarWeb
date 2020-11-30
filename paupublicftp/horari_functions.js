@@ -1,27 +1,8 @@
-var menjars_filtered;
 
 var apatDict;
 
 var result;
-function mealDB(){
-	this.getMeals = function(){
-		
-		obj = {"categoria":"*"};
-		requestInfo = JSON.stringify(obj);
-		var request = new XMLHttpRequest();
-		request.onreadystatechange = function(){
-			if (this.readyState == 4 && this.status == 200) {
-				result = JSON.parse(this.responseText);
-				apatDict = new food(result);
-				createDivs(document.getElementById("col2"),7,3,"day_col","meal_interval");
-				makeDraggables();
-			};
-		}
-		request.open("GET", "menjars_query.php?cat=" + requestInfo, true);
-		request.send();
-	}
-
-	this.createRows_opt = function(HTMLobj){
+function createRows_opt(HTMLobj){
 		var filter = HTMLobj.value;
 		document.getElementById("filtered_menjars").innerHTML = "<tr><th>Nom</th></tr>";
 		var selection = apatDict.getByCategory(filter);
@@ -30,32 +11,19 @@ function mealDB(){
 		});
 		makeDraggables();
 	}
+
+
+function dbLoaded(result){
+	apatDict = new Food(result);
+	createDivs(document.getElementById("col2"),7,3,"day_col","meal_interval");
+	makeDraggables();
 }
-class meal{
-	constructor(new_id, new_name, new_category){
-		this.id = new_id;
-		this.name = new_name;
-		this.category = new_category;
-	};
-	get getid(){return this.id};
-}
-function food(apatArray){
-		this.list = [];
-		apatArray.forEach((item)=>{
-			this.list[item["id"]] = new meal(item["id"], item["nom"], item["categoria"]);
-		});
-		this.getByCategory = function(category_val){
-			return this.list.filter((item)=>{return (item.category == category_val)});
-		};
-		this.getById = function(id_val){
-			return this.list[id_val];
-		};
-}
+
 
 function createFoodArray(apatArray){
 	var list = [];
 	apatArray.forEach(function (item){
-		list.push(new meal(item["id"], item["nom"], item["categoria"]));
+		list.push(new Meal(item["id"], item["nom"], item["categoria"]));
 	})
 	return list;
 }
@@ -87,7 +55,7 @@ function makeDraggables(plan){
 				setCookie("plan_save",JSON.stringify(current_plan.days));
 				this.remove();
 			}
-			database.createRows_opt(document.getElementById("sel_categoria"));
+			createRows_opt(document.getElementById("sel_categoria"));
 		};
 	};
 	for(i = 0; i < containers.length; i++){
@@ -97,7 +65,7 @@ function makeDraggables(plan){
 			//current_plan.addMeal(dragedFood.dataset.menjarid, this.dataset.x, this.dataset.y);
 		};
 	};
-	const trash = document.querySelector("#trash");
+	const trash = document.getElementById("trash");
 	trash.ondragenter = function(){
 			this.appendChild(document.querySelector(".dragging"));
 		};
