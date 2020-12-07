@@ -31,7 +31,7 @@ function Food(foodArray, type = Meal){
 
 function mealDB(){
 	this.get = function(tableName, dataFunction){
-		obj = {"categoria":"*"};
+		var obj = {"categoria":"*"};
 		var requestInfo = JSON.stringify(obj);
 		var request = new XMLHttpRequest();
 		request.onreadystatechange = function(){
@@ -49,13 +49,26 @@ function mealDB(){
 	this.getIngredients = function(dataFunction){
 		this.get("ingredients", dataFunction);
 	}
+	this.getRecipe = function(dataFunction, meal_id, recipe_id = 0){
+		var recipeToGet  = {"m_id":meal_id, "r_id":recipe_id};
+		var requestInfo = JSON.stringify(recipeToGet);
+		var request = new XMLHttpRequest();
+		request.onreadystatechange = function(){
+			if (this.readyState == 4 && this.status == 200) {
+				result = JSON.parse(this.responseText);
+				dataFunction(result);
+			};
+		}
+		request.open("GET", "./recepta_query.php?req=" + requestInfo, true);
+		request.send();
+	}
 }
 
 class Recipe extends Meal {
-	constructor(meal_id, food, author = "", recipe_id = 0){
+	constructor(meal_id, food, new_ingredients, author = "", recipe_id = 0){
 		super(food.getById(meal_id));
 		this.recipe_id = 0;
-		this.ingredients = [];
+		this.ingredients = new_ingredients;
 		this.author = "";
 	}
 }

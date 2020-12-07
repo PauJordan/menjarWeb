@@ -21,7 +21,7 @@
       <select id="menjar_select">
           <option selected disabled>Selecciona apat</option>
       </select>
-      <input type="submit" value="Editar">
+      <input type="button" value="Editar" onclick="echoRecipe()">
     </div>
     <div class="div_receptes">
 

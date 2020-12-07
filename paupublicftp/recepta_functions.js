@@ -8,6 +8,15 @@ function mealDropdown(parentObj){
 			opt.innerHTML = item.name;
 			this.parent.appendChild(opt);
 
-		})
+		});
+	};
+	this.getValue = function(){
+		return this.parent.value;
 	}
+}
+
+function echoRecipe(){
+	var id = 0;
+	id = md.getValue;
+	db.getRecipe((result)=>{console.log(new Recipe(id, menjars, result, "Pau"))}, id, 0);
 }
