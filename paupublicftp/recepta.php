@@ -19,11 +19,11 @@
         ?>
       </select>
       <select id="menjar_select">
-          <option selected disabled>Selecciona apat</option>
+          <option selected disabled value=null>Selecciona apat</option>
       </select>
       <input type="button" value="Editar" onclick="echoRecipe()">
     </div>
-    <div class="div_receptes">
+    <div id="editor" class="div_receptes">
 
     </div>
 </body>

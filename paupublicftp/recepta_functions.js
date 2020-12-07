@@ -1,5 +1,7 @@
 function mealDropdown(parentObj){
 	this.parent = parentObj;
+
+
 	this.updateOptions = function(mealArray){
 			this.parent.innerHTML = "<option selected disabled>Selecciona apat</option>"; //Clear list
 			mealArray.forEach((item)=>{
@@ -18,5 +20,5 @@ function mealDropdown(parentObj){
 function echoRecipe(){
 	var id = 0;
 	id = md.getValue;
-	db.getRecipe((result)=>{console.log(new Recipe(id, menjars, result, "Pau"))}, id, 0);
+	db.getRecipe((result)=>{console.log(new Recipe(result, menjars))}, (menjars.getById(id))["mainRecipeId"]);
 }

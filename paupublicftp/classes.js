@@ -3,6 +3,7 @@ class Meal{
 		this.id = db_json.id;
 		this.name = db_json.name;
 		this.category = db_json.category;
+		this.mainRecipeId = db_json.mainRecipeId;
 	};
 	get id(){return this._id};
 	set id(new_id){if(!this._id) this._id = new_id}; //Prevent modification once created
@@ -49,8 +50,8 @@ function mealDB(){
 	this.getIngredients = function(dataFunction){
 		this.get("ingredients", dataFunction);
 	}
-	this.getRecipe = function(dataFunction, meal_id, recipe_id = 0){
-		var recipeToGet  = {"m_id":meal_id, "r_id":recipe_id};
+	this.getRecipe = function(dataFunction, recipe_id){
+		var recipeToGet  = {"r_id":recipe_id};
 		var requestInfo = JSON.stringify(recipeToGet);
 		var request = new XMLHttpRequest();
 		request.onreadystatechange = function(){
@@ -64,12 +65,50 @@ function mealDB(){
 	}
 }
 
-class Recipe extends Meal {
-	constructor(meal_id, food, new_ingredients, author = "", recipe_id = 0){
-		super(food.getById(meal_id));
-		this.recipe_id = 0;
-		this.ingredients = new_ingredients;
-		this.author = "";
+
+class Recipe {
+	constructor(db_json, foodObj){
+		this.id = db_json.id;
+		this.meal = foodObj.getById(db_json.menjar_id);
+		this.version = db_json.version;
+		this.name = db_json.name;
+		this.author_id = db_json.author_id;
+		this.creation_date = db_json.creation_date;
+		this.ingredients = db_json.ingredients;
 	}
 }
+
+class RecipeEditor {
+	constructor(recipeIn, menjarsObj, ingredientsObj, parentObj){
+		this.recipe = recipeIn;
+		this.meals = menjarsObj;
+		this.ingredients = ingredientsObj;
+		this.root = parentObj;
+	}
+
+	render = function(){
+		let table = document.createElement("table");
+		let tableHead = document.createElement("tr");
+		tableHead.innerHTML = "<th>Ingredient</th> <th>Quantitat</th> <th>Unitat</th>";
+		table.appendChild(tableHead);
+
+		for(let pair of this.recipe.ingredients){
+			let ingredient = this.ingredients.getById(pair[0]);
+			let ingredient_qty = parseFloat(pair[1]);
+
+			var row = document.createElement("tr");
+
+			let items = [ingredient.name, ingredient_qty, ingredient.unit /*,"Editar"*/];
+			for(let item of items){
+				let td = document.createElement("td");
+				td.innerHTML = item;
+				td.contentEditable = true;
+				row.appendChild(td);
+			}
+			table.appendChild(row);
+		}
+		this.root.appendChild(table);
+	}
+}
+
 

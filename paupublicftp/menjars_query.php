@@ -20,7 +20,7 @@ $result = $stmt->get_result();
 $outp = $result->fetch_all(MYSQLI_ASSOC);
 //This section translates DB names into CLIENT JS object structure.
 $out_translated = array();
-$translation_map = array("id"=>"id","nom"=>"name","categoria"=>"category","unitat"=>"unit","preu"=>"price");
+$translation_map = array("id"=>"id","nom"=>"name","categoria"=>"category","unitat"=>"unit","preu"=>"price","recepta_principal_id" => "mainRecipeId");
 foreach ($outp as $entry) {
 	$new_entry = array();
 	foreach ($entry as $key => $value) {
@@ -30,12 +30,6 @@ foreach ($outp as $entry) {
 }
 //Return translated JSON
 echo json_encode($out_translated);
-
-
-
-
-
-
 
 
 ?>
