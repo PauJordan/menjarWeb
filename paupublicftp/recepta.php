@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="default.css">
+  <link rel="stylesheet" href="editor.css">
   <title>Editar recepta</title>
   <script src="classes.js"></script>
   <script src="recepta_functions.js"></script>
+  <script src="editor_functions.js"></script>
   <script src="recepta_ini.js" defer></script>
 </head>
 <body>
@@ -23,8 +25,9 @@
       </select>
       <input type="button" value="Editar" onclick="echoRecipe()">
     </div>
-    <div id="editor" class="div_receptes">
-
+    <div class="div_receptes">
+      <div id="editor" class="autocomplete">
+    </div>
     </div>
 </body>
 <footer>

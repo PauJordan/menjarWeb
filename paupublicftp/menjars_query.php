@@ -1,4 +1,5 @@
 <?php
+//Aquest document rep les peticions de descarrega de plats.
 include 'connect.php';
 $obj = json_decode($_GET["cat"], false);
 $con = connect_mysql();
