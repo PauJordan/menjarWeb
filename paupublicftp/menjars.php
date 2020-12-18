@@ -1,3 +1,13 @@
+<?php
+// Initialize the session
+session_start();
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: ../usersystem/login.php");
+    exit;
+}
+?>
+
 <html>
 <head>
 	<title>Llista menjars</title>
@@ -29,6 +39,6 @@
 		?>
 </body>
 <footer>
-<a href="/index.html">Index</a>
+<a href="/index.php">Index</a>
 </footer>
 </html>

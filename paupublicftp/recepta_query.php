@@ -1,4 +1,11 @@
 <?php
+// Initialize the session
+session_start();
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: ../usersystem/login.php");
+    exit;
+}
 include 'connect.php';
 $req = json_decode($_GET["req"], false);
 $con = connect_mysql();

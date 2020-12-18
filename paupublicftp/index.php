@@ -1,21 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?php
+// Initialize the session
+session_start();
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: ../usersystem/login.php");
+    exit;
+}
+?>
+ <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="default.css">
-<script>
-function myFunction() {
-  document.getElementById("demo").innerHTML = "Segueix en desenvolupament...";
-}
-</script>
-<title>Food Planner</title>
+  <title>Food Planner</title>
 </head>
 <body>
-
   <h1>Food Planner</h1>
-  <p id="demo">En desenvolupament</p>
-  <button type="button" onclick="myFunction()">Try it</button>
+  <p id="demo">Benvingut/da, <?php echo htmlspecialchars($_SESSION["username"]) ?> </p>
   <div>
     <a href="./ingredients_list.php">Veure ingredients</a>
   </div>
@@ -33,6 +35,15 @@ function myFunction() {
   </div>
   <div>
     <a href="./recepta.php">Mostrar recepta</a>
+  </div>
+  <div>
+    <a href="./usersystem/register.php">Registrar-se</a>
+  </div>
+  <div>
+    <a href="./usersystem/login.php">Iniciar sessió</a>
+  </div>
+  <div>
+    <a href="./usersystem/logout.php">Tancar sessió</a>
   </div>
   <div>
     <!-- <a href="./downloads/safe.mov" download="safe.mov">safe</a> -->
