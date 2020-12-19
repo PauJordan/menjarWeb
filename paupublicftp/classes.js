@@ -71,7 +71,7 @@ function mealDB(){
 				dataFunction(result);
 			};
 		}
-		request.open("GET", "menjars_query.php?tab=" + tableName + "&cat=" + requestInfo, true);
+		request.open("GET", "../menjars_query.php?tab=" + tableName + "&cat=" + requestInfo, true);
 		request.send();
 	}
 	this.getMeals = function(dataFunction){
@@ -80,7 +80,7 @@ function mealDB(){
 	this.getIngredients = function(dataFunction){
 		this.get("ingredients", dataFunction);
 	}
-	this.getRecipe = function(dataFunction, recipe_id){
+	this.pullRecipe = function(dataFunction, recipe_id){
 		var recipeToGet  = {"r_id":recipe_id};
 		var requestInfo = JSON.stringify(recipeToGet);
 		var request = new XMLHttpRequest();
@@ -93,6 +93,20 @@ function mealDB(){
 		request.open("GET", "./recepta_query.php?req=" + requestInfo, true);
 		request.send();
 	}
+	this.pushRecipe = function(dataFunction, recipeToPush){
+		//Puja recepta al servidor.
+		var recipeJSON = JSON.stringify(recipeToPush);
+		var request = new XMLHttpRequest();
+		request.onreadystatechange = function(){
+			if (this.readyState == 4 && this.status == 200) {
+				result = JSON.parse(this.responseText);
+				dataFunction(result);
+			};
+		}
+		request.open("GET", "./recepta_query.php?req=" + requestInfo, true);
+		request.send();
+	}
+
 }
 
 

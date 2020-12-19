@@ -1,5 +1,5 @@
 <?php
-include 'connect.php';
+include '../connect.php';
 $req = json_decode($_GET["req"], false);
 $con = connect_mysql();
 if(!$con){ echo "Error: (" . $con->errno . ") " . $con->error."<br>"; }

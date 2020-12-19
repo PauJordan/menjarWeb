@@ -19,5 +19,5 @@ function mealDropdown(parentObj){
 function echoRecipe(){ //DEBUG!!!! will get removed
 	var id = 0;
 	id = md.getValue;
-	db.getRecipe((result)=>{console.log(new Recipe(result, menjars))}, (menjars.getById(id))["mainRecipeId"]);
+	db.pullRecipe((result)=>{console.log(new Recipe(result, menjars))}, (menjars.getById(id))["mainRecipeId"]);
 }

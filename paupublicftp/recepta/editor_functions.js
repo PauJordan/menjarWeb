@@ -22,7 +22,6 @@ class RecipeEditor {
     {name:"Quantitat",  key:"qty",    editable:true,  autocomplete:false},
     {name:"Unitat",   key:"unit",   editable:false, autocomplete:false}
     ]};
-
   };
   remBut = (parent, item) => {
     //Afegeix boto que eliminaria l'item corresponent de la formula .
@@ -59,7 +58,6 @@ class RecipeEditor {
     //console.log("update " + key + " from formula item " + item_id + " to " + value);
     this.formula[item_id][key] = value;
   }
-
   genControls = function(parent){
     //Genera panell de controls BUIT!!!! TODO!
     let controls = document.createElement("div");
@@ -132,33 +130,31 @@ class RecipeEditor {
     td2.appendChild(but);
     newRow.appendChild(td2);
     table.appendChild(newRow);
-    //Boto de guardar la formula en una recepta. TODO!!!!!!
-    let td3 = document.createElement("td");
-    let but2 = document.createElement("input");
-    but2.value = "Guardar";
-    but2.type = "button";
-    but2.addEventListener("click", ()=>{ 
-      console.log("i do nothing (for now...)");   
-
-    });
-    td3.appendChild(but2);
-    let newRow2 = document.createElement("tr");     //Darrerisima fila.
-    for (let i = 0; i < 3; i++) {
-      let tds = document.createElement("td");
-      newRow2.appendChild(tds);
-      }
-    newRow2.appendChild(td3);
-    table.appendChild(newRow2);
-  } 
-
+  }
+  saveButton = (saveFunction) => {
+      //Boto de guardar la formula en una recepta. Neccesita una funció a qui li passara la recepta de sortida.
+      let button = document.createElement("input", "saveButton");
+      button.value = "Guardar";
+      button.type = "button";
+      button.addEventListener("click", ()=>{ 
+        saveFunction(this.saveRecipe()); });
+      return button;
+  }
 
   render = function(){
     //Dibuixa coses al html
     this.root.innerHTML=""; //Esborra tot
     this.genTable(this.root, this.tableGenInfo, this.ingredients.getNames()); //Generem taula
-    this.genControls(this.root); // I controls
+    //this.genControls(this.root); // I controls
   };
-
+  saveRecipe  = function(){
+    //Agafa la formula actual, actualitza els ingredients de la recepta, i la torna.
+    this.recipe.ingredients = [];
+    for (const id of Object.keys(this.formula)) {
+      this.recipe.ingredients.push([id, this.formula[id].qty]);
+    }
+    return this.recipe;
+  }
 };
 
 function autocomplete(inp, arr/*, click_func*/) {
@@ -188,7 +184,7 @@ function autocomplete(inp, arr/*, click_func*/) {
           b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
           b.innerHTML += arr[i].substr(val.length);
           /*insert a input field that will hold the current array item's value:*/
-          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          b.innerHTML += '<input type="hidden" value="' + arr[i] + '">';
           /*execute a function when someone clicks on the item value (DIV element):*/
               b.addEventListener("click", function(e) {
               /*insert the value for the autocomplete text field:*/

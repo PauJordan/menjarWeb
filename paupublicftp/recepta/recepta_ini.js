@@ -18,7 +18,7 @@ function echoRecipe(){ //DEBUG PROVISIONAL!!!!!
 	let id_edit = 0;
 	id_edit = md.getValue();
 	let re_id = (menjars.getById(id_edit))["mainRecipeId"];
-	db.getRecipe((result)=>{
+	db.pullRecipe((result)=>{
 		let recipeToEdit = new Recipe(result, menjars);
 		launchEditor(recipeToEdit);
 	}, re_id);
@@ -28,4 +28,8 @@ var re; //DEBUG!!!! declarem el editor globalment per poder accedir a les funcio
 function launchEditor(recipeToEdit){
 	re = new RecipeEditor(recipeToEdit, menjars, ingredients, document.getElementById("editor"));
 	re.render();
+	var sb = re.saveButton((recipeOut)=>{console.log(recipeOut);});
+	document.getElementById("food_select_div").appendChild(sb);
 }
+
+

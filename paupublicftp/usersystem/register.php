@@ -78,7 +78,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 // Redirect to login page
-                header("location: ../index.html");
+                header("location: ../index.php");
             } else{
                 echo "Oops! Error del servidor... paaau...";
             }

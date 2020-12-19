@@ -34,13 +34,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <a href="./horari.php">Planificació setmanal</a>
   </div>
   <div>
-    <a href="./recepta.php">Mostrar recepta</a>
-  </div>
-  <div>
-    <a href="./usersystem/register.php">Registrar-se</a>
-  </div>
-  <div>
-    <a href="./usersystem/login.php">Iniciar sessió</a>
+    <a href="./recepta/recepta.php">Mostrar recepta</a>
   </div>
   <div>
     <a href="./usersystem/logout.php">Tancar sessió</a>

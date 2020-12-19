@@ -6,7 +6,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../usersystem/login.php");
     exit;
 }
-include 'connect.php';
+include '../connect.php';
 $req = json_decode($_GET["req"], false);
 $con = connect_mysql();
 if(!$con){ echo "Error: (" . $con->errno . ") " . $con->error."<br>"; }
