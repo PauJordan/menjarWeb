@@ -23,7 +23,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 	if ($con->query($sql) === TRUE) {
 	  echo "Ingredient afegit correctament.<br> ";
-	  echo '<a href="/ingredients.php">Afegeix-ne un nou...</a>';
+	  echo '<a href="/ingredients_add.php">Afegeix-ne un nou...</a>';
 	} 
 
 	else {

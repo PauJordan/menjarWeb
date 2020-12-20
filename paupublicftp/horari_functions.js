@@ -1,7 +1,58 @@
 
+class ShopingList{
+	constructor(recipesOutFunction){
+		this.recipes = {};
+		this.kind = "Llista";
+		this.sendFunction = recipesOutFunction;
+	};
+	add = function(plat_id){
+		const recipe_id = selectRecipe(plat_id);
+		if(recipe_id in this.recipes){		
+			this.recipes[recipe_id]++;
+		} else if(recipe_id){
+			this.recipes[recipe_id] = 1;
+		} else {
+			console.log("Atenció, el plat "+apatDict.getById(plat_id).name+" no te recepta.");
+		}
+	};
+	empty = function(){
+		this.recipes = {};
+	};
+	print = function(){
+		for(recipe_id of object.keys(this.recipes)){
+			console.log("recipe : " + this.recipes[recipe]);
+		};
+	};
+	generate = (plats) => {
+		this.empty();
+		for (var i = 0; i < plats.length; i++) {
+			for (var j = 0; j < plats[i].length; j++) {
+				if(plats[i][j]){
+					for(var k = 0; k < plats[i][j].length; k++){
+						this.add(plats[i][j][k]);
+
+					};
+				};
+			};
+		};
+		this.sendFunction(this);
+	}
+	saveButton = (getPlats) => {
+      //Boto de guardar la formula en una recepta. Neccesita una funció a qui li passara la recepta de sortida.
+      let button = document.createElement("input", "saveButton");
+      button.value = "Generar llista";
+      button.type = "submit";
+      button.addEventListener("click", ()=> this.generate(getPlats));
+      return button;
+  }
+}
+
+
+
 var apatDict;
 
 var result;
+
 function createRows_opt(HTMLobj){
 		var filter = HTMLobj.value;
 		document.getElementById("filtered_menjars").innerHTML = "<tr><th>Nom</th></tr>";
@@ -19,6 +70,9 @@ function dbLoaded(result){
 	makeDraggables();
 }
 
+function selectRecipe(plat_id){ //TODO PATCH !!!!
+	return apatDict.getById(plat_id).mainRecipeId;
+}
 
 function createFoodArray(apatArray){
 	var list = [];
@@ -27,6 +81,7 @@ function createFoodArray(apatArray){
 	})
 	return list;
 }
+
 
 
 function makeDraggables(plan){

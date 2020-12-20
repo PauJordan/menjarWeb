@@ -13,12 +13,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 	<link rel="stylesheet" href="default.css">
 	<script type="text/javascript" src="classes.js" ></script>
 	<script type="text/javascript" src="horari_functions.js" ></script>
-	<script type="text/javascript" src="horari_ini.js"></script>
+	<script type="text/javascript" src="horari_ini.js" defer></script>
 </head>
 <body>
-<header>
-</header>
-<div id="col1" >
+
+<div id="col1">
 	<select id="sel_categoria" name="categoria" onchange="createRows_opt(this);">
 		<option selected disabled>Filtra per categoria:</option>
 		<?php
@@ -33,11 +32,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 	</table>
 </div>
 <div id="col2">	
-
-	<script>
-		window.addEventListener("DOMContentLoaded", function() {
-        	//createDivs(document.getElementById("col2"),7,3,"day_col","meal_interval");
-    	}, false);</script>
 </div>
 
 </body>

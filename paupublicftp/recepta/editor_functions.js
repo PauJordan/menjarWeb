@@ -2,11 +2,12 @@ class RecipeEditor {
   //Aquesta classe representa una instància d'editor de receptes. 
   //Accepta un objecte de classe Recipe, un directori de menjars, un  directori d'ingredients i un objecte on anclar-se.
   //Creat per en Pau Oliveras el 7/12/2020.
-  constructor(recipeIn, menjarsObj, ingredientsObj, parentObj){
+  constructor(recipeIn, mealIn, ingredientsObj, recipeOutFunction){
     this.recipe = recipeIn;
-    this.meals = menjarsObj;
+    this.saveFunction = recipeOutFunction;
+    this.meal = mealIn;
     this.ingredients = ingredientsObj;
-    this.root = parentObj;
+    this.root = document.createElement("div");
     this.formula = {}; //Aqui es on es guarda la relació de ingredient_id <-> nom, quantitat, unitat, preu... FORMULA.
     for (let pair of this.recipe.ingredients){ //rebem array de parelles de valors (id, quantitat)de la recepta.
       let ingredient = ingredients.getById(pair[0]);
@@ -22,6 +23,7 @@ class RecipeEditor {
     {name:"Quantitat",  key:"qty",    editable:true,  autocomplete:false},
     {name:"Unitat",   key:"unit",   editable:false, autocomplete:false}
     ]};
+    return this;
   };
   remBut = (parent, item) => {
     //Afegeix boto que eliminaria l'item corresponent de la formula .
@@ -95,6 +97,13 @@ class RecipeEditor {
             td.classList.add(genInfo.editClass);
             autocomplete(inp, autocomplete_array); //Autocompleta l input amb l'array
           }
+          else{
+            inp.addEventListener("keyup", event => {
+              if(event.key !== "Enter") return; // Use `.key` instead.
+              this.saveRecipe(); // Things you want to do.
+              event.preventDefault(); // No need to `return false;`.
+              });
+          }
           td.appendChild(inp);
         } else if(col.htmlobj){ //Realitzar una operació amb la cel·la i l'item.
           col.htmlobj(td, item);
@@ -114,6 +123,11 @@ class RecipeEditor {
     let inp = document.createElement("input");
     inp.placeholder = "Introdueix ingredient";
     inp.type = "text";
+    inp.addEventListener("keyup", event => {
+      if(event.key !== "Enter") return; // Use `.key` instead.
+        this.addToFormula(inp.value); 
+        event.preventDefault(); // No need to `return false;`.
+      });
     td1.classList.add(genInfo.editClass);
     autocomplete(inp, autocomplete_array);
     td1.appendChild(inp);
@@ -131,19 +145,20 @@ class RecipeEditor {
     newRow.appendChild(td2);
     table.appendChild(newRow);
   }
-  saveButton = (saveFunction) => {
+  saveButton = () => {
       //Boto de guardar la formula en una recepta. Neccesita una funció a qui li passara la recepta de sortida.
       let button = document.createElement("input", "saveButton");
       button.value = "Guardar";
-      button.type = "button";
+      button.type = "submit";
       button.addEventListener("click", ()=>{ 
-        saveFunction(this.saveRecipe()); });
+        this.saveRecipe();});
+     
       return button;
   }
 
   render = function(){
     //Dibuixa coses al html
-    this.root.innerHTML=""; //Esborra tot
+    this.root.innerHTML = ""; //Esborra tot
     this.genTable(this.root, this.tableGenInfo, this.ingredients.getNames()); //Generem taula
     //this.genControls(this.root); // I controls
   };
@@ -153,6 +168,7 @@ class RecipeEditor {
     for (const id of Object.keys(this.formula)) {
       this.recipe.ingredients.push([id, this.formula[id].qty]);
     }
+    this.saveFunction(this.recipe);
     return this.recipe;
   }
 };

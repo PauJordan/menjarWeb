@@ -6,6 +6,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: ../usersystem/login.php");
     exit;
 }
+
+
 ?>
 <?xml version="1.0" encoding="utf-8"?>
 <html>
@@ -25,7 +27,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       <select id="sel_categoria" onchange=md.updateOptions(menjars.getByCategory(this.value));>
         <option selected disabled>Filtra per categoria</option>
         <?php
-          include '../connect.php';
+          include_once '../connect.php';
           create_db_dropdown("menjars_categories", "idcatmenjars");   
         ?>
       </select>
@@ -35,8 +37,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       <input type="button" value="Editar" onclick="echoRecipe()">
     </div>
     <div class="div_receptes">
-      <div id="editor" class="autocomplete">
-    </div>
+      <div id="editor" class="autocomplete"> </div>
     </div>
 </body>
 <footer>

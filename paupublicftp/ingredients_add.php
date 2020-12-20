@@ -20,7 +20,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 			<label for="categoria">Categoria:</label>
 			<select id="categoria" name="categoria">
 				<?php
-					include 'connect.php';
+					include_once 'connect.php';
 					create_db_dropdown("ingredients_categories", "categoria", "categoria");		
 				?>
 			</select><br>
@@ -31,7 +31,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 	</form>
 </body>
 <footer>
-<?php echo $errcode; ?>
 <a href="/index.php">Index</a>
 </footer>
 </html>

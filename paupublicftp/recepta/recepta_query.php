@@ -25,20 +25,6 @@ $stmt->execute();
 $result = $stmt->get_result();
 $recepta["ingredients"] = $result->fetch_all(MYSQLI_NUM);
 
-//This section translates DB names into CLIENT JS object structure.
-/*
-$out_translated = array();
-$translation_map = array("id"=>"id","nom"=>"name","categoria"=>"category","unitat"=>"unit","preu"=>"price");
-foreach ($outp as $entry) {
-	$new_entry = array();
-	foreach ($entry as $key => $value) {
-		$new_entry[$translation_map[$key]] = $value;
-	}
-	array_push($out_translated, $new_entry);
-}
-*/
-//Return translated JSON
-
-echo json_encode($recepta)
+echo json_encode($recepta);
 
 ?>

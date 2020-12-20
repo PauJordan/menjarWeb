@@ -114,7 +114,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="help-block"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
+                <input type="submit" class="btn btn-primary" value="Inicia">
             </div>
             <p>No estàs registrat? <a href="./register.php">Fes-ho!</a>.</p>
         </form>

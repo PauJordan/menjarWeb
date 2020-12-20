@@ -18,18 +18,48 @@ function echoRecipe(){ //DEBUG PROVISIONAL!!!!!
 	let id_edit = 0;
 	id_edit = md.getValue();
 	let re_id = (menjars.getById(id_edit))["mainRecipeId"];
-	db.pullRecipe((result)=>{
-		let recipeToEdit = new Recipe(result, menjars);
-		launchEditor(recipeToEdit);
-	}, re_id);
+	if(re_id){ //if recipe has a main recipe_id; 
+		db.pullRecipe((result)=>{
+			let recipeToEdit = new Recipe(result, menjars);
+			launchEditor(recipeToEdit);
+		}, re_id);
+	} else {
+			let emptyResult = {};
+			emptyResult["menjar_id"] = id_edit;
+			emptyResult["name"] = "Normal";
+			emptyResult["version"] = 0;
+			emptyResult["ingredients"] = [];
+			let recipeToEdit = new Recipe(emptyResult, menjars);
+			launchEditor(recipeToEdit);
+	}
+	
 }
 
 var re; //DEBUG!!!! declarem el editor globalment per poder accedir a les funcions. Instancia'l i renderitza'l.
+var sb;
+var message;
+function sendRecipe(recipeOut){
+	message.innerHTML = "Enviant...";
+	db.push(recipeOut, result => message.innerHTML = result);
+}
 function launchEditor(recipeToEdit){
-	re = new RecipeEditor(recipeToEdit, menjars, ingredients, document.getElementById("editor"));
+	let parent = document.getElementById("editor");
+	let div =document.getElementById("food_select_div");
+	if(re){
+		parent.removeChild(re.root);
+	}
+	if(sb){
+		div.removeChild(sb);
+		div.removeChild(message);
+	}
+	re = new RecipeEditor(recipeToEdit, menjars, ingredients, sendRecipe);
+	parent.appendChild(re.root);
 	re.render();
-	var sb = re.saveButton((recipeOut)=>{console.log(recipeOut);});
-	document.getElementById("food_select_div").appendChild(sb);
+	
+	message = document.createElement("p");
+	sb = re.saveButton();
+	div.appendChild(sb);
+	div.appendChild(message);
 }
 
 
