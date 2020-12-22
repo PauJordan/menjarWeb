@@ -32,11 +32,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 		echo "<td contenteditable='true'>" . $row['nom'] . "</td>";
 		echo "</tr>";
 		}
-		echo "</table>";
-
 		$con->close();
 
 		?>
+	</table>
 </body>
 <footer>
 <a href="/index.php">Index</a>

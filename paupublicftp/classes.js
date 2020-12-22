@@ -1,3 +1,4 @@
+
 class Ingredient {
 //Representa un item a adquirir com a materia prima necessaria per la creació d'una unitat de un menjar, un plat.
 	constructor(db_json){
@@ -9,6 +10,15 @@ class Ingredient {
 		this.kind = "Ingredient";
 	}
 }
+
+class ListItem extends Ingredient {
+	constructor(db_json){
+		super(db_json);
+		this.qty = db_json.qty.toFixed(1);
+		this.cost = (this.qty*this.price).toFixed(2);
+	}
+}
+
 
 class Meal{ 
 //ELs objectes d'aqusta classe representen un plat, un item de menjar que una dieta pot incloure en un apat, un interval concret que pot contenir diversos plats. Conte un id de recepta. 
@@ -44,14 +54,17 @@ function Food(foodArray, type = Meal){
 //Crea un directori de menjar, ja siguin ingredients o plats. 
 //Proporciona diversos mètodes per recuperar sub-conjunts d'aquests en funció de la seva categoria, nom o id.
 		this.list = [];
+		let catDict = {};
 		foodArray.forEach((item)=>{
-			this.list[item["id"]] = new type(item);
+			this.list.push( new type(item));
+			catDict[item["category"]] = 0;
 		});
+		this.categories = Object.keys(catDict);
 		this.getByCategory = function(category_val){
 			return this.list.filter((item)=>{return (item.category == category_val)});
 		};
 		this.getById = function(id_val){
-			return this.list[id_val];
+			return (this.list.filter((item)=>{return (item.id == id_val)}))[0];	
 		};
 		this.getNames = function(){
 			return (this.list.map(ingredient => ingredient.name)).filter((item)=>{return item});	
@@ -59,6 +72,9 @@ function Food(foodArray, type = Meal){
 		this.getByName = function(name) {
 			return (this.list.filter((item)=>{return (item.name == name)}))[0];			
 		};
+		this.getList = () => {
+
+		}
 }
 
 function mealDB(){

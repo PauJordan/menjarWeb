@@ -1,10 +1,3 @@
-class ListItem {
-	constructor(ingredient, qty, completed){
-		this.ingredient = ingredient;
-		this.qty = qty;
-		this.done = completed;
-	}
-}
 
 class ShopingList {
 	constructor(ingredientDirectory){
@@ -62,10 +55,11 @@ class PlatCounter{
 			};
 		};
 		this.db.push(this, (response) => {
-			if(response === 0) {
+			if(response == 0) {
 				this.message("	Desat correctament.");
 			} else {
 				this.message("	Error del servidor... Paaaaaaau que has feeet?");
+				console.log(response);
 			}
 		});
 	}
@@ -76,10 +70,10 @@ class PlatCounter{
       button.type = "submit";
       button.addEventListener("click", ()=> this.count(getPlats));
       return button;
-  }
-  message = (displayText)=> {
-  	this.messageP.innerHTML = displayText;
-  }
+  	}
+  	message = (displayText)=> {
+  		this.messageP.innerHTML = displayText;
+  	}
 }
 
 
@@ -90,7 +84,7 @@ var result;
 
 function createRows_opt(HTMLobj){
 		var filter = HTMLobj.value;
-		document.getElementById("filtered_menjars").innerHTML = "<tr><th>Nom</th></tr>";
+		document.getElementById("filtered_menjars").innerHTML = "";
 		var selection = apatDict.getByCategory(filter);
 		selection.forEach((item)=>{
 			document.getElementById("filtered_menjars").innerHTML += ("<tr><td><p data-menjarid ="+ item["id"]+" class='mobil'>"+item["name"]+"</p></tr></td>");
@@ -210,7 +204,10 @@ function createDivs(parent, nX, nY, classNameX, classNameY, saved_plan = undefin
 }
 
 function setCookie(cname, cvalue) {
-  document.cookie = cname + "=" + cvalue + ";path=/";
+	var exdate = new Date();
+	let exdays = 365;
+   	exdate.setDate(exdate.getDate() + exdays);
+  	document.cookie = cname + "=" + cvalue + (!exdays ? "" : "; expires=" + exdate.toUTCString())  + ";path=/";
 }
 function getCookie(cname){
 	var dc = document.cookie;

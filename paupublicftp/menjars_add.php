@@ -13,9 +13,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 	<title>Afegir menjars</title>
 </head>
 <body>
+	<header>
+		<a href="/index.php">Inici</a>
+	</header>
 	<form action="menjars_send.php" method="post">
 		<fieldset>
-			Nom: <input type="text" name="nom"><br>
+			Nom: <input type="text" name="nom">
 			<!-- Categoria: <input type="text" name="categoria"><br> -->
 			<label for="categoria">Categoria:</label>
 			<select id="categoria" name="categoria">
@@ -23,12 +26,32 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 					include 'connect.php';
 					create_db_dropdown("menjars_categories", "idcatmenjars");		
 				?>
-			</select><br>
+			</select>
 			<input type="submit">
 		</fieldset>
 	</form>
+	<table border='1'>
+		<tr>
+		<th>Categoria</th>
+		<th>Nom</th>
+		</tr>
+		<?php
+		$con = connect_mysql();
+		$result = $con->query("SELECT * FROM menjars ORDER BY categoria, nom");
+
+
+		while($row = $result->fetch_assoc())
+		{
+		echo "<tr>";
+		echo "<td>" . $row['categoria'] . "</td>";
+		echo "<td contenteditable='true'>" . $row['nom'] . "</td>";
+		echo "</tr>";
+		}
+		$con->close();
+
+		?>
+	</table>
 </body>
 <footer>
-	<a href="/index.php">Index</a>
 </footer>
 </html>

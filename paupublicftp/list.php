@@ -35,11 +35,20 @@ echo 0;
 } else if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 $user_id = $_SESSION["id"];
-$listData["list"] = json_decode($db->getList($user_id), true);
+$list = json_decode($db->getList($user_id), true);
 
-$ing_used_ids = array_keys($listData["list"]);
-$listData["ingredients"] = $db->getIngredients($ing_used_ids);
+$ing_used_ids = array_keys($list);
+$ingredients = $db->getIngredients($ing_used_ids);
+$listItems = array();
+foreach ($ingredients as $i => $ingredient) {
+	$listItems[$i]["id"] = $ingredients[$i]["id"];
+	$listItems[$i]["category"] = $ingredients[$i]["categoria"];
+	$listItems[$i]["name"] = $ingredients[$i]["nom"];
+	$listItems[$i]["unit"] = $ingredients[$i]["unitat"];
+	$listItems[$i]["qty"] = $list[$ingredient["id"]];
+	$listItems[$i]["price"] = floatval($ingredients[$i]["preu"]);
+}
 
-echo json_encode($listData);
+echo json_encode($listItems);
 }
 ?>
