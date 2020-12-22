@@ -1,9 +1,34 @@
+class ListItem {
+	constructor(ingredient, qty, completed){
+		this.ingredient = ingredient;
+		this.qty = qty;
+		this.done = completed;
+	}
+}
 
-class ShopingList{
-	constructor(recipesOutFunction){
+class ShopingList {
+	constructor(ingredientDirectory){
+		this.items = [];
+		this.ingDir = ingredientDirectory;
+	}
+	addFromJSON = function(json){
+		const items = JSON.parse(json);
+		for(ing_id of Object.keys(items)){
+			const ingredient = this.ingDir.getById(ing_id);
+			const qty = items[ing_id];
+			let listItem = new ListItem(ingredient, qty, false);
+			this.items.push(listItem);
+		}
+	}
+}
+
+
+class PlatCounter{
+	constructor(db){
 		this.recipes = {};
 		this.kind = "Llista";
-		this.sendFunction = recipesOutFunction;
+		this.db = db;
+		this.messageP = document.createElement("span");
 	};
 	add = function(plat_id){
 		const recipe_id = selectRecipe(plat_id);
@@ -23,7 +48,8 @@ class ShopingList{
 			console.log("recipe : " + this.recipes[recipe]);
 		};
 	};
-	generate = (plats) => {
+	count = (plats) => {
+		this.message("	Enviant...");
 		this.empty();
 		for (var i = 0; i < plats.length; i++) {
 			for (var j = 0; j < plats[i].length; j++) {
@@ -35,15 +61,24 @@ class ShopingList{
 				};
 			};
 		};
-		this.sendFunction(this);
+		this.db.push(this, (response) => {
+			if(response === 0) {
+				this.message("	Desat correctament.");
+			} else {
+				this.message("	Error del servidor... Paaaaaaau que has feeet?");
+			}
+		});
 	}
 	saveButton = (getPlats) => {
       //Boto de guardar la formula en una recepta. Neccesita una funció a qui li passara la recepta de sortida.
       let button = document.createElement("input", "saveButton");
-      button.value = "Generar llista";
+      button.value = "Generar i desar llista";
       button.type = "submit";
-      button.addEventListener("click", ()=> this.generate(getPlats));
+      button.addEventListener("click", ()=> this.count(getPlats));
       return button;
+  }
+  message = (displayText)=> {
+  	this.messageP.innerHTML = displayText;
   }
 }
 

@@ -64,6 +64,7 @@ function updateRecipe($con, $recipe){
 function updateFormula($con, $recipe, $id){
 	if($stmt = $con->prepare("DELETE FROM formules WHERE recepta_id = ?")){
 			$stmt->bind_param("i", $id);	
+			$stmt->execute();
 		};
 	$recepta_id = intval($id);
 	foreach ($recipe["ingredients"] as $ingredient) {

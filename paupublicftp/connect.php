@@ -31,4 +31,80 @@
 	}
 
 
+
+class Database {
+	public $con;
+	private $stmt;
+	function connect() {
+		$connection= new mysqli("localhost:3306","web","Web02sql","testdb");
+		if($connection->connect_error) {
+    		die('Connect Error (' . mysqli_connect_errno() . ') '. mysqli_connect_error());
+		}
+		return $connection;
+	}
+	function __construct(){
+		$this->con = $this->connect();
+	}
+	function __destruct(){
+		$this->con->close();
+	}
+	
+	
+	function query($stmt){
+		$this->stmt = $stmt;
+		$this->stmt->execute();
+		return $stmt->get_result()->fetch_assoc();
+	}
+
+	function getFormula($id){
+		
+		if($stmt = $this->con->prepare(
+			"SELECT ingredient_id, quantitat FROM formules WHERE recepta_id = ?"))
+		{
+			$stmt->bind_param("i", $id);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			return $result->fetch_all(MYSQLI_NUM);	
+		};
+	}
+
+	function saveList($user_id, $json){
+		if($stmt = $this->con->prepare(
+			"INSERT INTO llistes (user_id, llista) VALUES (?, ?) ON DUPLICATE KEY UPDATE llista = VALUES (llista) "))
+		{
+			$stmt->bind_param("is", $user_id, $json);
+			$stmt->execute();
+		} else {
+			echo("Error description: " . $this->con->error);
+		}
+	}
+		
+	function getList($user_id){
+		if($stmt = $this->con->prepare(
+			"SELECT llista FROM llistes WHERE user_id = ?"))
+		{
+			$stmt->bind_param("i", $user_id);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			$row = $result->fetch_row();
+			return $row[0];
+
+		};
+	}
+		 
+	function getIngredients($ingredients_ids){
+		$sql = 'SELECT * 
+         FROM ingredients
+         WHERE id IN (' . implode(',', array_map('intval', $ingredients_ids)) . ')';
+
+         if($stmt = $this->con->prepare($sql)){
+			$stmt->execute();
+			$result = $stmt->get_result();
+			return $result->fetch_all(MYSQLI_ASSOC);
+
+		};
+	}
+}
+
+
 ?>

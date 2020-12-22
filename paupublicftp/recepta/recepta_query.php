@@ -26,5 +26,4 @@ $result = $stmt->get_result();
 $recepta["ingredients"] = $result->fetch_all(MYSQLI_NUM);
 
 echo json_encode($recepta);
-
 ?>

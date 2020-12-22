@@ -16,7 +16,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 	<script type="text/javascript" src="horari_ini.js" defer></script>
 </head>
 <body>
-
+<div id="topbar"></div>
 <div id="col1">
 	<select id="sel_categoria" name="categoria" onchange="createRows_opt(this);">
 		<option selected disabled>Filtra per categoria:</option>

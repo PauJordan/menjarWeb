@@ -39,7 +39,7 @@ var re; //DEBUG!!!! declarem el editor globalment per poder accedir a les funcio
 var sb;
 var message;
 function sendRecipe(recipeOut){
-	message.innerHTML = "Enviant...";
+	message.innerHTML = "	Enviant...";
 	db.push(recipeOut, result => message.innerHTML = result);
 }
 function launchEditor(recipeToEdit){
@@ -56,7 +56,7 @@ function launchEditor(recipeToEdit){
 	parent.appendChild(re.root);
 	re.render();
 	
-	message = document.createElement("p");
+	message = document.createElement("span");
 	sb = re.saveButton();
 	div.appendChild(sb);
 	div.appendChild(message);

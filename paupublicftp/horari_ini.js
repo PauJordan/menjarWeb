@@ -7,8 +7,10 @@ var db = new mealDB();
 db.getMeals(dbLoaded);
 
 
-var llista = new ShopingList(recipesOut => db.push(recipesOut, response => console.log(response)) );
-var genButton = llista.saveButton(current_plan.days);
-let c1 = document.getElementById("col1");
-c1.insertBefore(genButton, c1.firstChild);
+var counter = new PlatCounter(db);
+var genButton = counter.saveButton(current_plan.days);
+var bar = document.getElementById("topbar");
+var counterDisplay = counter.messageP;
+bar.insertBefore(counterDisplay, bar.firstChild);
+bar.insertBefore(genButton, bar.firstChild);
 

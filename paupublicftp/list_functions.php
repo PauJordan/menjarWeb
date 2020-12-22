@@ -1,20 +1,25 @@
 <?php
-include_once '../connect.php';
+include_once './connect.php';
 
 
-function getFormula($recipe_id){
-	$con = connect_mysql();
-	if(!$con){ echo "Error: (" . $con->errno . ") " . $con->error."<br>"; }
-	if($stmt = $con->prepare("SELECT ingredient_id, quantitat FROM receptes WHERE menjar_id = ? AND recepta_id = ? ")){
-		$stmt->bind_param("ii", $req->m_id, $req->r_id);	
-	};
-	$stmt->execute();
-	$result = $stmt->get_result();
-	$outp = $result->fetch_all(MYSQLI_NUM);
-	return $ingredients;
-}
+class IngredientList {
+	private $list = array();
 
-function addToTotal($ingredients, $times){
-
+	function addToTotal($ingredients, $times){
+		for ($i=0; $i < count($ingredients); $i++) { 
+			$qty = floatval($ingredients[$i][1])*$times;
+			$this->addIngredient($ingredients[$i][0], $qty);
+		}
+	}
+	function addIngredient($id, $qty){
+		if(array_key_exists($id, $this->list)){
+			$this->list[$id] += $qty;
+		} else {
+			$this->list[$id] = $qty;
+		}
+	}
+	function getList(){
+		return $this->list;
+	}
 }
 ?>

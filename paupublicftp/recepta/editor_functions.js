@@ -148,7 +148,7 @@ class RecipeEditor {
   saveButton = () => {
       //Boto de guardar la formula en una recepta. Neccesita una funció a qui li passara la recepta de sortida.
       let button = document.createElement("input", "saveButton");
-      button.value = "Guardar";
+      button.value = "Desar";
       button.type = "submit";
       button.addEventListener("click", ()=>{ 
         this.saveRecipe();});
