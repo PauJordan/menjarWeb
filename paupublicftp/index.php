@@ -18,6 +18,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <body>
   <h1>Planificador d'apats</h1>
   <p id="demo">Benvingut/da, <?php echo htmlspecialchars(ucfirst($_SESSION["username"])) ?>. </p> <a href="./usersystem/logout.php">Tancar sessió</a>
+  <br><a href="./instruccions.php">Instruccions</a>
 
    <h3>Afegeix a la base de dades:</h3>
   <div>
@@ -28,7 +29,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   </div>
   <h3>Edita les receptes de cada plat:</h3>
   <div>
-    <a href="./recepta/recepta.php">Editar Receptes</a>
+    <a href="./recepta/recepta.php">Editar receptes</a>
   </div>
   <h3>Planifica't la setmana:</h3>
   <div>

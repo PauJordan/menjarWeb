@@ -1,3 +1,7 @@
+var ingDisplay = new DisplaySpan();
+var ingDiv = document.getElementById("ing_form");
+ingDiv.appendChild(ingDisplay);
+
 var apatDict, ingredients; //directori de apats i d'ingredients
 var db = new mealDB; //Instanciem base de dades remota.
 var md = new mealDropdown(document.getElementById("menjar_select")); //Instanciem dropdown.

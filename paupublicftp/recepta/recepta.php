@@ -21,9 +21,32 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
   <script src="./editor_functions.js"></script>
   <script src="./recepta_ini.js" defer></script>
 </head>
-<body>
+  <body>
+    <div class = "div_receptes">
+    <form id="ing_form" action="../ingredients.php" method="post">
+        Afegeix ingredient rapidament: <input type="text" name="nom">
+        <!-- Categoria: <input type="text" name="categoria"><br> -->
+        <label for="categoria">Categoria:</label>
+        <select id="ing_categoria" name="categoria">
+          <?php
+            include_once '../connect.php';
+            create_db_dropdown("ingredients_categories", "categoria", "categoria");   
+          ?>
+        </select>
+        Unitat:
+        <select id="ing_unitats" name="unitat">
+          <?php
+            include_once '../connect.php';
+            create_db_dropdown("unitats", "name", "name");    
+          ?>
+        </select>
+        
+        Preu: <input type="text" name="preu">
+        <input type="submit">
+    </form>
+  </div>
   <div class="div_receptes" id="food_select_div">
-      Edita: 
+      Editar recepta: 
       <select id="sel_categoria" onchange=md.updateOptions(menjars.getByCategory(this.value));>
         <option selected disabled>Filtra per categoria</option>
         <?php
@@ -36,7 +59,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       </select>
       <input type="button" value="Editar" onclick="echoRecipe()">
     </div>
-    <div class="div_receptes">
+    <div id="div_editor">
       <div id="editor" class="autocomplete"> </div>
     </div>
 </body>

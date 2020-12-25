@@ -1,6 +1,7 @@
 #editor {
+  width: 100%;
+  margin: 10px;
   background-color: transparent;
-  width: 100%; 
 }
 
 .autocomplete {

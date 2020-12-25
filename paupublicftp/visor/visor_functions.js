@@ -7,11 +7,13 @@ class ListViewer {
       "formula": list,
       "editClass": "autocomplete",
       "fields": [ 
+    {name:"Secció",    key:"category",   editable:false,  autocomplete:false, aign: "left"},
     {name: null, key: null, editable:false, autocomplete:false, htmlobj:this.checkBox},
-    {name:"Nom",    key:"name",   editable:false,  autocomplete:false},
+    {name:"Nom",    key:"name",   editable:false,  autocomplete:false, aign: "left"},
     {name:"Quantitat",  key:"qty",    editable:false,  autocomplete:false, align: "right"},
     {name:" ",   key:"unit",   editable:false, autocomplete:false},
-    {name:"Cost",  key:"cost",    editable:false,  autocomplete:false, align: "right"}
+    {name:"Cost (€)",  key:"cost",    editable:false,  autocomplete:false, align: "right"}
+
     ]};
 	}
 

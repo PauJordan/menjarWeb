@@ -171,6 +171,11 @@ class RecipeEditor {
     this.saveFunction(this.recipe);
     return this.recipe;
   }
+  updateIngredients = ingDir => { 
+      this.ingredients = ingDir; 
+      this.render();
+    };
+
 };
 
 function autocomplete(inp, arr/*, click_func*/) {

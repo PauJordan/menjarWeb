@@ -22,7 +22,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <body>
   <h2>Llista</h2>
   <p id="demo">La teva llista, <?php echo htmlspecialchars($_SESSION["username"]) ?> </p>
-  <div class="div_receptes">
+  <div>
       <div id="visor" class="autocomplete"> </div>
   </div>
 </body>

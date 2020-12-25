@@ -96,10 +96,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($code_err) && empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         //use activation code 
         if($stmt = $mysqli->prepare( "UPDATE activation_codes SET notused = 0 WHERE code = ?")){
-            $stmt->bind_param("s", $param_code);                
-        };
-        $stmt->execute();
-
+            $stmt->bind_param("s", strval($code));
+            $stmt->execute();                
+            // Redirect to login page
+            } else{
+                echo "Oops! Error del servidor... paaau...";
+                exit;
+            };
         // Prepare an insert statement
         $sql = "INSERT INTO users (username, password, code) VALUES (?, ?, ?)";
          
@@ -114,8 +117,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 // Redirect to login page
-                echo"Registrat correctament! Pots iniciar sessió: ";
-                header("location: ../index.php");
+                echo"Registrat correctament! Pots iniciar sessió: <a href='./login.php'>Inicia sessió</a>";
                 
             } else{
                 echo "Oops! Error del servidor... paaau...";

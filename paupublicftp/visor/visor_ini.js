@@ -5,6 +5,7 @@ fetch('../list.php',{ method: "GET"})
   .then(response => response.json())
   .then(data => {
   	listItemsDir = new Food(data, ListItem);
+  	listItemsDir.sortItems("category");
   	launchViewer();
   });
 

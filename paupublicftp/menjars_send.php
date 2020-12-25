@@ -17,9 +17,15 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 	<?php
 		include 'connect.php';
 		$con = connect_mysql();
+		$name = $con->real_escape_string($_POST["nom"]);
+		if(empty($name)){
+			echo "Posa el nom siusplau.";
+			echo '<br><a href="/menjars_add.php">Torna-ho a provar...</a>';
+			exit;
+		}
 
 		$sql = "INSERT INTO menjars (nom, categoria)
-		VALUES ('".$con->real_escape_string($_POST["nom"])."', '".$con->real_escape_string($_POST["categoria"])."')";
+		VALUES ('".$name."', '".$con->real_escape_string($_POST["categoria"])."')";
 
 		if ($con->query($sql) === TRUE) {
 		  echo "Menjar afegit correctament.<br> ";
@@ -27,8 +33,16 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 		} 
 
 		else {
-		  echo "Error: " . $sql . "<br>" . $con->error. "<br>";
-		  echo '<a href="/menjars_add.php">Torna-ho a provar...</a>';
+			switch ($con->errno) {
+				case 1062:
+					echo "Error: Aquest plat ja existeix.";
+					break;
+				
+				default:
+					echo "Error: ".$con->errno." ". $con->error;
+					break;
+			}
+		  echo '<br><a href="/menjars_add.php">Torna-ho a provar...</a>';
 		}
 
 		$con->close();

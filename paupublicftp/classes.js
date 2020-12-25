@@ -1,4 +1,24 @@
 
+
+class DisplaySpan extends HTMLSpanElement {
+	constructor(){
+		super();
+	}
+	display = (message) => this.innerHTML = message;
+	clear = () => this.innerHTML = "";
+}
+
+customElements.define("display-span", DisplaySpan, {extends:"span"});
+
+/*
+var displaySpan = document.registerElement('display-span', {
+  prototype: Object.create(HTMLSpanElement.prototype),
+  extends: 'span'
+});
+*/
+
+
+
 class Ingredient {
 //Representa un item a adquirir com a materia prima necessaria per la creació d'una unitat de un menjar, un plat.
 	constructor(db_json){
@@ -75,6 +95,19 @@ function Food(foodArray, type = Meal){
 		this.getList = () => {
 
 		}
+		this.sortItems = function(criterion){
+			let compare = function( a, b) {
+				if ( a[criterion] < b[criterion] ){
+					return -1;
+				}
+				if ( a[criterion] > b[criterion] ){
+					return 1;
+				}
+					return 0;
+			}
+			this.list.sort(compare);
+		}
+
 }
 
 function mealDB(){
