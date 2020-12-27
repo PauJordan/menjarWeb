@@ -1,0 +1,79 @@
+h1 {
+
+font-family: "Helvetica", sans-serif;
+}
+body {
+  background-color: #cccccc;
+  margin: 20px;
+  font-family: "Arial", sans-serif;
+}
+table {
+	background-color: white;
+}
+.header {
+  padding: 15px;
+}
+* {
+	box-sizing: border-box;
+
+}
+
+#col1 {
+  width: 18%;
+  float: left;
+  padding: 15px;
+  }
+
+ #col2 {
+  width: 80%;
+  float: left;
+  padding: 15px;
+  }
+  .meal_interval {
+    height: 25%;
+    margin: 2px;
+    padding: 2px;
+    border-width: 1px;
+    border-style: solid;
+  }
+  .day_col {
+      float: left;
+      width: 14%;
+    }
+  .mobil{
+    margin: 2px;
+    padding: 2px;
+    background-color: white;
+    border: 1px solid black;
+    cursor: move;
+  }
+  .mobil.dragging{
+    opacity: 0.5;
+  }
+  #trash{
+    position: fixed;
+    bottom: 0;
+    right: 100px;
+    max-height: 200px;
+    min-height: 100px;
+    width: 200px;
+    padding: 15px;
+    align-content: center;
+    border-width: 1px;
+    border-style: solid;
+  }
+  .div_receptes{
+    width: 100%;
+    float: left;
+    padding: 15px;
+    border-width: 1px;
+    border-style: solid;
+    margin-top: 20px;
+  }
+
+footer {
+  position: absolute;
+  bottom: 0;
+  max-height: 20%;
+  margin: 20px;
+}
