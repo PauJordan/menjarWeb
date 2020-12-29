@@ -55,7 +55,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <br>
     <br>
     Mes informació: <br>
-    <p>Sobre les dades: Ara per ara, la informació d'ingredients, plats i receptes es compartida. El pla setmanal es guarda localment al teu dispositiu, només tu hi pots accedir, no es guarda al servidor. La llista de la compra es propia de cada usuari, només tu hi pots accedir desde qualsevol dispositiu, es guarda al servidor.</p>
+    <p>Sobre les dades: Ara per ara, la informació d'ingredients, plats i receptes es compartida. El pla setmanal es guarda localment al teu dispositiu, només tu hi pots accedir, no es guarda al servidor. La llista de la compra es propia de cada usuari, només tu hi pots accedir desde qualsevol dispositiu, es guarda al servidor. El servidor no guarda cap tipus d'informació personal mes enllà del nom d'usuari, ni tan sols la contrasenya.</p>
   </div>
 </body>
 
