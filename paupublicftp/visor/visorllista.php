@@ -21,14 +21,19 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 </head>
 <body>
   <h2>Llista</h2>
+  <header>
+    <span>Canvia-la a</span>
+    <a href="../horari.php">Planificació setmanal</a>
+    <span>.  Torna a</span>
+    <a href="/index.php">Inici</a><br>   </header>
+  
   <p id="demo">La teva llista, <?php echo htmlspecialchars($_SESSION["username"]) ?> </p>
   <div>
       <div id="visor" class="autocomplete"> </div>
   </div>
 </body>
 <footer>
-  <a href="../horari.php">Planificació setmanal</a>
-  <a href="/index.php">Index</a><br> 
+  
 </footer>
 </html>
 

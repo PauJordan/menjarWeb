@@ -59,6 +59,7 @@ class RecipeEditor {
     //Actualitza en la formula l'item amb id = item_id amb el nou valor value. 
     //console.log("update " + key + " from formula item " + item_id + " to " + value);
     this.formula[item_id][key] = value;
+     message.innerHTML = ""; //HOT FIX!!! TODO This resets display message.
   }
   genControls = function(parent){
     //Genera panell de controls BUIT!!!! TODO!

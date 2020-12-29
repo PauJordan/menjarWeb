@@ -42,9 +42,15 @@ function echoRecipe(){ //DEBUG PROVISIONAL!!!!!
 var re; //DEBUG!!!! declarem el editor globalment per poder accedir a les funcions. Instancia'l i renderitza'l.
 var sb;
 var message;
+var lastMessage = "";
 function sendRecipe(recipeOut){
 	message.innerHTML = "	Enviant...";
-	db.push(recipeOut, result => message.innerHTML = result);
+	db.push(recipeOut, 
+		result => {
+			message.innerHTML = result;
+			echoRecipe();
+		}
+	);
 }
 function launchEditor(recipeToEdit){
 	let parent = document.getElementById("editor");
@@ -54,6 +60,7 @@ function launchEditor(recipeToEdit){
 	}
 	if(sb){
 		div.removeChild(sb);
+		lastMessage = message.innerHTML;
 		div.removeChild(message);
 	}
 	re = new RecipeEditor(recipeToEdit, menjars, ingredients, sendRecipe);
@@ -61,9 +68,11 @@ function launchEditor(recipeToEdit){
 	re.render();
 	
 	message = document.createElement("span");
+	message.innerHTML = lastMessage;
 	sb = re.saveButton();
 	div.appendChild(sb);
 	div.appendChild(message);
 }
+
 
 
