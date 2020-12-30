@@ -36,7 +36,7 @@ class Database {
 	public $con;
 	private $stmt;
 	function connect() {
-		$connection= new mysqli("localhost:3306","web","Web02sql","testdb");
+		$connection= new mysqli("192.168.3.180:3306","xamp","xamp","testdb");
 		if($connection->connect_error) {
     		die('Connect Error (' . mysqli_connect_errno() . ') '. mysqli_connect_error());
 		}
