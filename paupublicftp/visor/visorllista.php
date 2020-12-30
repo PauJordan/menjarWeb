@@ -32,11 +32,3 @@ echo  '<?xml version="1.0" encoding="utf-8"?>';
   
 </footer>
 </html>
-
-<!--
-<div>
-    <textarea id="textbox"></textarea>
-
-
-  </div>
-  -->
