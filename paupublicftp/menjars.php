@@ -1,13 +1,8 @@
 <?php
-// Initialize the session
-session_start();
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: ../usersystem/login.php");
-    exit;
-}
+include_once $_SERVER["DOCUMENT_ROOT"]."/usersystem/auth.php";
+auth();
+echo  '<?xml version="1.0" encoding="utf-8"?>';
 ?>
-
 <html>
 <head>
 	<title>Llista menjars</title>
