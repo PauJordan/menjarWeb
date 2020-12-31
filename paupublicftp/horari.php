@@ -7,6 +7,7 @@ echo  '<?xml version="1.0" encoding="utf-8"?>';
 <head>
 	<title>Horari</title>
 	<link rel="stylesheet" href="default.css">
+	<link rel="stylesheet" href="horari.css">
 	<script type="text/javascript" src="classes.js" ></script>
 	<script type="text/javascript" src="horari_functions.js" ></script>
 	<script type="text/javascript" src="horari_ini.js" defer></script>
