@@ -96,7 +96,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($code_err) && empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         //use activation code 
         if($stmt = $mysqli->prepare( "UPDATE activation_codes SET notused = 0 WHERE code = ?")){
-            $stmt->bind_param("s", strval($code));
+            $stmt->bind_param("s", $code);
             $stmt->execute();                
             // Redirect to login page
             } else{
