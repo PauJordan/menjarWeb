@@ -12,7 +12,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="default.css">
-  <title>Planificador d'apats</title>
+  <title>Planificador d'apats modificat</title>
 </head>
 <body>
   <h1>Planificador d'apats</h1>
