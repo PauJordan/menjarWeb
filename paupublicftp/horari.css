@@ -2,8 +2,7 @@
     position: fixed;
     bottom: 0;
     right: 100px;
-    max-height: 100px;
-    min-height: 50px;
+    height: 100px;
     width: 200px;
     padding: 15px;
     align-content: center;

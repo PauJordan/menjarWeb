@@ -1,9 +1,10 @@
 h1 {
 
 font-family: "Helvetica", sans-serif;
+font-size: 50px;
 }
 body {
-  background-color: #cccccc;
+  background-color: #e9fcfe;
   margin: 20px;
   font-family: "Arial", sans-serif;
 }
@@ -61,7 +62,7 @@ table {
   }
 
 footer {
-  position: absolute;
+  position: static;
   bottom: 0;
   max-height: 20%;
   margin: 20px;

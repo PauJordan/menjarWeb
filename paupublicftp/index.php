@@ -12,21 +12,22 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="default.css">
-  <title>Planificador d'apats modificat</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <title>Planificador d'apats</title>
 </head>
 <body>
   <h1>Planificador d'apats</h1>
   <p id="demo">Benvingut/da, <?php echo htmlspecialchars(ucfirst($_SESSION["username"])) ?>. </p> <a href="./usersystem/logout.php">Tancar sessió</a>
   <br><a href="./instruccions.php">Instruccions</a>
-
-   <h3>Afegeix a la base de dades:</h3>
+   
+   <h3> Afegeix a la base de dades:</h3>
   <div>
     <a href="./ingredients_add.php">Ingredients</a>
   </div>
   <div>
     <a href="./menjars_add.php">Plats</a>
   </div>
-  <h3>Edita les receptes de cada plat:</h3>
+  <h3>Edita les receptes de cada plat:</h3></span>
   <div>
     <a href="./recepta/recepta.php">Editar receptes</a>
   </div>
@@ -45,6 +46,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 </body>
 <footer>
   <br>
-  By Pau
+  By Pau and Laura
 </footer>
 </html>
