@@ -1,7 +1,7 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"]."/usersystem/auth.php";
 auth();
-}
+
 
 include_once 'connect.php';
 $con = connect_mysql();
